@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model characterAttributes {
+  id             Int            @unique @default(autoincrement())
+  sheetId        Int
+  strength       Int
+  dexterity      Int
+  constitution   Int
+  intellingence  Int
+  wisdom         Int
+  charisma       Int
+  characterSheet characterSheet @relation(fields: [sheetId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model characterSheet {
+  id                  Int                   @unique @default(autoincrement())
+  userId              Int
+  characterName       String
+  function            String
+  antecedent          String
+  race                String
+  alignment           String
+  daysSurvived        Int
+  createdAt           DateTime              @default(dbgenerated("'2023-01-21 15:15:31.833239'::timestamp without time zone")) @db.Timestamp(6)
+  updatedAt           DateTime              @default(dbgenerated("'2023-01-21 15:15:31.833239'::timestamp without time zone")) @db.Timestamp(6)
+  users               users                 @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  characterAttributes characterAttributes[]
+  characterStatus     characterStatus[]
+}
+
+model characterStatus {
+  id             Int            @unique @default(autoincrement())
+  sheetId        Int
+  CA             Int
+  totalLife      Int
+  actualLife     String
+  totalSanity    Int
+  actualSanity   String
+  deathSuccesses Int            @default(0)
+  deathFailure   Int            @default(0)
+  createdAt      DateTime       @default(dbgenerated("'2023-01-21 15:15:31.833239'::timestamp without time zone")) @db.Timestamp(6)
+  updatedAt      DateTime       @default(dbgenerated("'2023-01-21 15:15:31.833239'::timestamp without time zone")) @db.Timestamp(6)
+  characterSheet characterSheet @relation(fields: [sheetId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model sessions {
+  id        Int      @unique @default(autoincrement())
+  userId    Int
+  token     String   @unique
+  createdAt DateTime @default(dbgenerated("'2023-01-21 15:15:31.833239'::timestamp without time zone")) @db.Timestamp(6)
+  updatedAt DateTime @default(dbgenerated("'2023-01-21 15:15:31.833239'::timestamp without time zone")) @db.Timestamp(6)
+  users     users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id             Int              @unique @default(autoincrement())
+  nickname       String           @unique
+  email          String           @unique @db.VarChar(100)
+  password       String           @db.VarChar(50)
+  createdAt      DateTime         @default(dbgenerated("'2023-01-21 15:15:31.833239'::timestamp without time zone")) @db.Timestamp(6)
+  updatedAt      DateTime         @default(dbgenerated("'2023-01-21 15:15:31.833239'::timestamp without time zone")) @db.Timestamp(6)
+  characterSheet characterSheet[]
+  sessions       sessions[]
+}
