@@ -1,4 +1,4 @@
-import { users } from "@prisma/client";
+import { Prisma, users } from "@prisma/client";
 import { prisma } from "@/config";
 
 async function findByEmail(email: string,) {
@@ -15,9 +15,16 @@ async function create(data: Omit<users, "id" | "createdAt" | "updatedAt">) {
   });
 }
 
+async function createSessionToken(data: Prisma.sessionsUncheckedCreateInput) {
+  return prisma.sessions.create({
+    data,
+  });
+}
+
 const userRepository = {
   findByEmail,
   create,
+  createSessionToken
 };
 
 export default userRepository;

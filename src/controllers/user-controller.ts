@@ -17,3 +17,14 @@ export async function userPost(req: Request, res: Response) {
     return res.status(httpStatus.BAD_REQUEST);
   }
 }
+
+export async function sessionPost(req: Request, res: Response) {
+  const { email, password } = req.body;
+
+  try {
+    const session = await userService.signIn({ email, password });
+    return res.status(httpStatus.OK).send(session);
+  } catch (error) {
+    return res.status(httpStatus.UNAUTHORIZED);
+  }
+}

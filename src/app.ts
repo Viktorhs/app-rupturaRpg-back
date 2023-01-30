@@ -6,14 +6,15 @@ import { loadEnv, connectDb, disconnectDB } from "@/config";
 loadEnv();
 
 import { handleApplicationErrors } from "@/middlewares";
-import { usersRouter } from "@/routers";
+import { usersRouter, sheetRouter } from "@/routers";
 
 const app = express();
 app
   .use(cors())
   .use(express.json())
   .get("/health", (_req, res) => res.send("OK!"))
-  .use("/signUp", usersRouter)
+  .use("/user", usersRouter)
+  .use("/sheet", sheetRouter)
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
