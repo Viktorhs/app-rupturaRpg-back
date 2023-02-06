@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authenticateToken } from "@/middlewares";
-import { listUserSheets, listSheetById, createSheet, updateSheetInfos } from "@/controllers";
+import { deleteSheet, listUserSheets, listSheetById, createSheet, updateSheetInfos, updateSheetAttributes, updateSheetStatus, updateSheetDescription, updateSheetWeapons, updateSheetDefenses, updateSheetItems, updateSheetSkills, updateSheetNotes } from "@/controllers";
 
 const sheetRouter = Router();
 
@@ -9,10 +9,15 @@ sheetRouter
   .get("/list", listUserSheets)
   .get("/:sheetId", listSheetById)
   .post("/create", createSheet)
-  .put("/sheetInfos", updateSheetInfos);
-// .put("/sheetStatus",  );
-//.put("/sign-in", sessionPost)
-//.put("/sign-in", sessionPost)
-//.delete("/sign-in", sessionPost);
+  .put("/infos", updateSheetInfos)
+  .put("/status",  updateSheetStatus)
+  .put("/attributtes", updateSheetAttributes)
+  .put("/description", updateSheetDescription)
+  .put("/weapons", updateSheetWeapons)
+  .put("/defenses", updateSheetDefenses)
+  .put("/items", updateSheetItems)
+  .put("/skills", updateSheetSkills)
+  .put("/Notes", updateSheetNotes)
+  .delete("/:sheetId", deleteSheet);
 
 export { sheetRouter };

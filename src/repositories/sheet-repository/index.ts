@@ -1,6 +1,5 @@
+import { CharacterSheetEntity, CharacterStatusEntity, CharacterAttributesEntity, CharacterDescriptionEntity, CharacterWeaponsEntity, CharacterDefensesEntity, CharacterItemsEntity, CharacterSkillsEntity, CharacterNotesEntity  } from "./../../protocols";
 import { prisma } from "@/config";
-import { characterSheet } from "@prisma/client";
-import { date } from "joi";
 
 async function getUserSheets(userId: number) {
   return prisma.characterSheet.findMany({
@@ -18,10 +17,19 @@ async function getUserSheetInformations(userId: number, sheetId: number) {
     },
     include: {
       characterStatus: {
+        where: {
+          sheetId
+        }
       },
       characterAttributes: {
+        where: {
+          sheetId
+        }
       },
       characterDescription: {
+        where: {
+          sheetId
+        }
       },
       characterWeapons: {
         where: {
@@ -108,27 +116,172 @@ async function createSheet(userId: number) {
   };
 }
 
-async function updateCharacterSheet(sheetId: number, infos: Omit<characterSheet, "createdAt" | "updatedAt" | "userId" | "id">) {
+async function updateCharacterSheet(infos: Omit<CharacterSheetEntity, "id">, id: number) {
   return prisma.characterSheet.update({
     where: {
-      id: sheetId
+      id: id
     },
     data: {
-      characterName: infos.characterName,
-      function: infos.function,
-      race: infos.race,
-      daysSurvived: infos.daysSurvived,
-      alignment: infos.alignment,
+      ...infos,
       updatedAt: new Date,
     }
   });
+}
+
+async function updateCharacterStatus(status: Omit<CharacterStatusEntity, "id" | "sheetId">, id: number) {
+  return prisma.characterStatus.update({
+    where: {
+      id: id,
+    },
+    data: {
+      ...status,
+      updatedAt: new Date,
+    }
+  });
+}
+
+async function updateCharacterAttributes(attributes: Omit<CharacterAttributesEntity, "id" | "sheetId">, id: number) {
+  return prisma.characterAttributes.update({
+    where: {
+      id: id,
+    },
+    data: {
+      ...attributes,
+      updatedAt: new Date,
+    }
+  });
+}
+
+async function updateCharacterDescription(description: Omit<CharacterDescriptionEntity, "id" | "sheetId">, id: number) {
+  return prisma.characterDescription.update({
+    where: {
+      id: id,
+    },
+    data: {
+      ...description,
+      updatedAt: new Date,
+    }
+  });
+}
+
+async function updateCharacterWeapons(weapons: Omit<CharacterWeaponsEntity, "id" | "sheetId">, id: number) {
+  return prisma.characterWeapons.update({
+    where: {
+      id: id,
+    },
+    data: {
+      ...weapons,
+      updatedAt: new Date,
+    }
+  });
+}
+
+async function updateCharacterDefenses(defenses: Omit<CharacterDefensesEntity, "id" | "sheetId">, id: number) {
+  return prisma.characterDefenses.update({
+    where: {
+      id: id,
+    },
+    data: {
+      ...defenses,
+      updatedAt: new Date,
+    }
+  });
+}
+
+async function updateCharacterItems(items: Omit<CharacterItemsEntity, "id" | "sheetId">, id: number) {
+  return prisma.characterItems.update({
+    where: {
+      id: id,
+    },
+    data: {
+      ...items,
+      updatedAt: new Date,
+    }
+  });
+}
+
+async function updateCharacterSkills(skills: Omit<CharacterSkillsEntity, "id" | "sheetId">, id: number) {
+  return prisma.characterSkills.update({
+    where: {
+      id: id,
+    },
+    data: {
+      ...skills,
+      updatedAt: new Date,
+    }
+  });
+}
+async function updateCharacterNotes(notes: Omit<CharacterNotesEntity, "id" | "sheetId">, id: number) {
+  return prisma.characterNotes.update({
+    where: {
+      id: id,
+    },
+    data: {
+      ...notes,
+      updatedAt: new Date,
+    }
+  });
+}
+
+async function deleteSheet(sheetId: number) {
+  return await prisma.$transaction([
+    prisma.characterAttributes.deleteMany({
+      where: {
+        sheetId
+      }
+    }),
+    prisma.characterDefenses.deleteMany({
+      where: {
+        sheetId
+      }
+    }),
+    prisma.characterDescription.deleteMany({
+      where: {
+        sheetId
+      }
+    }),
+    prisma.characterItems.deleteMany({
+      where: {
+        sheetId
+      }
+    }),
+    prisma.characterNotes.deleteMany({
+      where: {
+        sheetId
+      }
+    }),
+    prisma.characterSkills.deleteMany({
+      where: {
+        sheetId
+      }
+    }),
+    prisma.characterStatus.deleteMany({
+      where: {
+        sheetId
+      }
+    }),
+    prisma.characterWeapons.deleteMany({
+      where: {
+        sheetId
+      }
+    }),
+  ]);
 }
 
 const sheetRepository = {
   getUserSheets,
   getUserSheetInformations,
   createSheet,
-  updateCharacterSheet
+  updateCharacterSheet,
+  updateCharacterStatus,
+  updateCharacterAttributes,
+  updateCharacterDescription,
+  updateCharacterWeapons,
+  updateCharacterDefenses,
+  updateCharacterItems,
+  updateCharacterSkills,
+  updateCharacterNotes,
+  deleteSheet
 };
   
 export default sheetRepository;

@@ -2,16 +2,20 @@ import { Prisma, users } from "@prisma/client";
 import { prisma } from "@/config";
 
 async function findByEmail(email: string,) {
-  return prisma.users.findUnique({
+  return await prisma.users.findFirst({
     where: {
       email
     }
   });
 }
 
-async function create(data: Omit<users, "id" | "createdAt" | "updatedAt">) {
+async function createUser(data: Omit<users, "id" | "createdAt" | "updatedAt">) {
   return prisma.users.create({
-    data,
+    data: {
+      email: data.email,
+      password: data.password,
+      nickname: data.nickname,
+    }
   });
 }
 
@@ -23,7 +27,7 @@ async function createSessionToken(data: Prisma.sessionsUncheckedCreateInput) {
 
 const userRepository = {
   findByEmail,
-  create,
+  createUser,
   createSessionToken
 };
 

@@ -9,15 +9,18 @@ const invalidCredentialsError = {
   name: "InvalidCredentialsError",
   message: "email or password are incorrect"
 };
+
 async function createUser({ nickname, email, password }: user): Promise<users> {
   await validUniqueEmail(email);
 
   const hashedPassword = await bcrypt.hash(password, 12);
-  return userRepository.create({
+  const data = {
     nickname,
     email,
     password: hashedPassword,
-  });
+  };
+
+  return await userRepository.createUser(data);
 }
 
 async function signIn({ email, password }: Omit<user, "nickname">) {
@@ -39,7 +42,8 @@ async function signIn({ email, password }: Omit<user, "nickname">) {
 
 async function validUniqueEmail(email: string) {
   const isValid = await userRepository.findByEmail(email);
-  if(isValid.email) {
+  
+  if(isValid) {
     throw {
       name: "DuplicatedEmailError",
       message: "There is already an user with given email",

@@ -8,8 +8,10 @@ CREATE TABLE "characterAttributes" (
     "intellingence" INTEGER,
     "wisdom" INTEGER,
     "charisma" INTEGER,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "ballisticSkill" INTEGER,
+    "meleeSkill" INTEGER,
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -20,8 +22,8 @@ CREATE TABLE "characterDefenses" (
     "weight" TEXT,
     "CA" TEXT,
     "modifications" TEXT,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -41,10 +43,10 @@ CREATE TABLE "characterDescription" (
     "bonds" TEXT,
     "weaknesses" TEXT,
     "features" TEXT,
-    "aliados" TEXT,
+    "allies" TEXT,
     "story" TEXT,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -53,8 +55,8 @@ CREATE TABLE "characterItems" (
     "sheetId" INTEGER NOT NULL,
     "money" TEXT,
     "others" TEXT,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -62,8 +64,8 @@ CREATE TABLE "characterNotes" (
     "id" SERIAL NOT NULL,
     "sheetId" INTEGER NOT NULL,
     "notes" TEXT,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -75,8 +77,8 @@ CREATE TABLE "characterSheet" (
     "race" TEXT,
     "alignment" TEXT,
     "daysSurvived" INTEGER,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -85,8 +87,8 @@ CREATE TABLE "characterSkills" (
     "sheetId" INTEGER NOT NULL,
     "skills" TEXT,
     "talents" TEXT,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -101,8 +103,10 @@ CREATE TABLE "characterStatus" (
     "actualSanity" TEXT,
     "deathSuccesses" INTEGER NOT NULL DEFAULT 0,
     "deathFailure" INTEGER NOT NULL DEFAULT 0,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "sanitySuccesses" INTEGER NOT NULL DEFAULT 0,
+    "sanityFailure" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -118,8 +122,8 @@ CREATE TABLE "characterWeapons" (
     "range" TEXT,
     "maxMunition" TEXT,
     "actualMunition" TEXT,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -127,8 +131,8 @@ CREATE TABLE "sessions" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "token" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateTable
@@ -136,25 +140,19 @@ CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
     "nickname" TEXT NOT NULL,
     "email" VARCHAR(100) NOT NULL,
-    "password" VARCHAR(50) NOT NULL,
-    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone,
-    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-01-26 15:06:46.266679'::timestamp without time zone
+    "password" VARCHAR(200) NOT NULL,
+    "createdAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone,
+    "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT '2023-02-03 16:53:54.946324'::timestamp without time zone
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "characterAttributes_id_key" ON "characterAttributes"("id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "characterAttributes_sheetId_key" ON "characterAttributes"("sheetId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "characterDefenses_id_key" ON "characterDefenses"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "characterDescription_id_key" ON "characterDescription"("id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "characterDescription_sheetId_key" ON "characterDescription"("sheetId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "characterItems_id_key" ON "characterItems"("id");
@@ -170,9 +168,6 @@ CREATE UNIQUE INDEX "characterSkills_id_key" ON "characterSkills"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "characterStatus_id_key" ON "characterStatus"("id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "characterStatus_sheetId_key" ON "characterStatus"("sheetId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "characterWeapons_id_key" ON "characterWeapons"("id");
