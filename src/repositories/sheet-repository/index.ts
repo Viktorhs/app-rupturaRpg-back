@@ -5,8 +5,16 @@ async function getUserSheets(userId: number) {
   return prisma.characterSheet.findMany({
     where: {
       userId
+    },
+    include: {
+      characterDescription: {
+        select: {
+          appearance: true
+        }
+        }
+      }
     }
-  });
+  );
 }
 
 async function getUserSheetInformations(userId: number, sheetId: number) {

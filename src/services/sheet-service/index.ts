@@ -21,7 +21,7 @@ async function createUserSheet(userId: number) {
     };
   }
 
-  const sheetId = await sheetRepository.createSheet;
+  const sheetId = await sheetRepository.createSheet(userId);
   return sheetId;
 }
 

@@ -19,7 +19,7 @@ async function createUser({ nickname, email, password }: user): Promise<users> {
     email,
     password: hashedPassword,
   };
-
+  
   return await userRepository.createUser(data);
 }
 

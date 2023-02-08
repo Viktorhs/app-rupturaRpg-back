@@ -10,6 +10,7 @@ async function findByEmail(email: string,) {
 }
 
 async function createUser(data: Omit<users, "id" | "createdAt" | "updatedAt">) {
+  console.log(data)
   return prisma.users.create({
     data: {
       email: data.email,
